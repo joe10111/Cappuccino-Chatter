@@ -11,4 +11,5 @@
 ## Iteration 2 - "Login" and Create Messages
 ![requestandresponseMod3Project_2](https://github.com/joe10111/MvcMessageLogger/assets/41969516/7324de04-c4cb-460e-a787-c009bc94f00d)
 
-![UserDetialsPageWireframe](https://github.com/joe10111/MvcMessageLogger/assets/41969516/184f3392-bafe-4a02-8365-bd22d87c9c44)
+
+![UserDetialsPageWireframe](https://github.com/joe10111/MvcMessageLogger/assets/41969516/1e7aa7c3-7887-4088-9171-8a99b5bd3951)
