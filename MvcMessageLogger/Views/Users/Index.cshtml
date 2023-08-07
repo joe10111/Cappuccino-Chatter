@@ -1,0 +1,17 @@
+﻿@model IEnumerable<MvcMessageLogger.Models.User>
+
+<h1>Users</h1>
+
+@if (Model.Any() != false)
+{
+    @foreach (var user in Model)
+    {
+        <ul>
+            <li><p>UserName: @user.Username, Name: @user.Name</p></li>
+        </ul>
+    }
+}
+else
+{
+    <p>No data available.</p>
+}
