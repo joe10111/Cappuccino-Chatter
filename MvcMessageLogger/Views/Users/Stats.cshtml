@@ -1,0 +1,30 @@
+﻿@model IEnumerable<MvcMessageLogger.Models.User>
+
+<h1>Users Stats</h1>
+
+@if (Model.Any() != false)
+{
+    var orderedUsers = Model.OrderByDescending(u => u.Messages.Count());
+    
+    foreach (var user in orderedUsers)
+    {
+        if(user.Messages.Any() != false)
+        {
+            <ul>
+                <li><p>UserName: @user.Username | Count of Messages: @user.Messages.Count() | Most Used Words: @user.MostUsedWord(user) | Hour with Most Messages: @user.HourWithMostMessages(user) | How many times "Coffee" is mentioned: @user.CountOfCoffeeInMessages(user) </p></li>
+            </ul>
+        }
+        else
+        {
+            <p> @user.Username has no messeges in database.</p>
+        }
+    }
+}
+else
+{
+    <p>No data available.</p>
+}
+
+
+<a href="/users"><button>Back</button></a>
+
