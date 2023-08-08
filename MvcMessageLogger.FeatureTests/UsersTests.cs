@@ -125,7 +125,7 @@ namespace MvcMessageLogger.FeatureTests
 
             var formData = new Dictionary<string, string>
             {
-                { "Content", "Hello world!" },
+                { "Content", "Hello world!" }
             };
 
             // Act
@@ -136,6 +136,82 @@ namespace MvcMessageLogger.FeatureTests
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
             Assert.Contains("Hello world!", html);
+        }
+
+        [Fact]
+        public async Task Test_AUserCanSeeStats_OnStatsPage()
+        {
+            var context = GetDbContext();
+
+            // Arrange
+            var client = _factory.CreateClient();
+            var time = DateTime.UtcNow;
+            var Jim = new User { Username = "JimComedy123", Name = "Jim" };
+            Jim.Messages.Add(new Message { Content = "Hello coffee!", CreatedAt = time });
+            Jim.Messages.Add(new Message { Content = "Hello, coffee is good!", CreatedAt = time });
+            context.Users.Add(Jim);
+            context.SaveChanges();
+
+            var response = await client.GetAsync($"/Users/stats");
+            var html = await response.Content.ReadAsStringAsync();
+
+            Assert.Contains("Count of Messages: 2", html);
+            Assert.Contains("Most Used Words: Hello", html);
+            Assert.Contains("How many times \"Coffee\" is mentioned: 2", html);
+        }
+
+        [Fact]
+        public async Task Test_MostUsedWordsMethod_ReturnsCorrectValue()
+        {
+            var context = GetDbContext();
+
+            // Arrange
+            var client = _factory.CreateClient();
+            var time = DateTime.UtcNow;
+            var Jim = new User { Username = "JimComedy123", Name = "Jim" };
+            Jim.Messages.Add(new Message { Content = "coffee", CreatedAt = time });
+            Jim.Messages.Add(new Message { Content = "coffee is good!", CreatedAt = time });
+            context.Users.Add(Jim);
+
+            var Joe = new User { Username = "JoeComedy123", Name = "Joe" };
+            Joe.Messages.Add(new Message { Content = "Hello", CreatedAt = time });
+            Joe.Messages.Add(new Message { Content = "Hello coffee is good!", CreatedAt = time });
+            context.Users.Add(Joe);
+            context.SaveChanges();
+
+            var response = await client.GetAsync($"/Users/stats");
+            var html = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal("coffee", Jim.MostUsedWord(Jim));
+            Assert.Equal("Hello", Joe.MostUsedWord(Joe));
+        }
+
+        [Fact]
+        public async Task Test_HourWithMostMessages_ReturnsCorrectValue()
+        {
+            var context = GetDbContext();
+
+            // Arrange
+            var client = _factory.CreateClient();
+            var time = DateTime.UtcNow;
+            var Jim = new User { Username = "JimComedy123", Name = "Jim" };
+            Jim.Messages.Add(new Message { Content = "coffee", CreatedAt = time });
+            Jim.Messages.Add(new Message { Content = "coffee is good!", CreatedAt = time });
+            context.Users.Add(Jim);
+
+            var Joe = new User { Username = "JoeComedy123", Name = "Joe" };
+            Joe.Messages.Add(new Message { Content = "Hello", CreatedAt = time });
+            Joe.Messages.Add(new Message { Content = "Hello coffee is good!", CreatedAt = time });
+            context.Users.Add(Joe);
+            context.SaveChanges();
+
+            var response = await client.GetAsync($"/Users/stats");
+            var html = await response.Content.ReadAsStringAsync();
+
+            // Might have to chnage hard coded value later if I run test again and it changes time since I am 
+            // calling 
+            Assert.Equal("17:00", Jim.HourWithMostMessages(Jim));
+            Assert.Equal("17:00", Joe.HourWithMostMessages(Joe));
         }
     }
 }

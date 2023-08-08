@@ -26,7 +26,7 @@ namespace MvcMessageLogger.Controllers
         [Route("Users/{Id:int}")]
         public IActionResult Show(int Id)
         {
-            var userWithMessages = _context.Users.Where(user => user.Id == Id).Include(user => user.Messages).FirstOrDefault(); ;
+            var userWithMessages = _context.Users.Where(user => user.Id == Id).Include(user => user.Messages).FirstOrDefault();
 
            return View(userWithMessages);
         }
@@ -48,5 +48,13 @@ namespace MvcMessageLogger.Controllers
             return RedirectToAction("Index", new { id = newUserId });
         }
 
+        [HttpGet]
+        [Route("users/stats")]
+        public IActionResult Stats(int Id)
+        {
+            var userWithMessages = _context.Users.Include(user => user.Messages);
+
+            return View(userWithMessages);
+        }
     }
 }
