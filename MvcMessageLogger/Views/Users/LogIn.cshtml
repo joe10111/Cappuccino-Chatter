@@ -1,0 +1,45 @@
+﻿@model MvcMessageLogger.Models.User
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<form id="loginForm">
+    <div class="form-group">
+        <label for="Username">Username:</label>
+        <input type="text" class="form-control" id="Username" name="Username" required />
+    </div>
+    <div class="form-group">
+        <label for="Password">Password:</label>
+        <input type="password" class="form-control" id="Password" name="Password" required />
+    </div>
+    <p id="loginStatus" class="text-danger" style="display: none;"></p>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        let formData = new FormData(this);
+
+        fetch('/users/login', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.redirectUrl;
+            } else {
+                document.getElementById('loginStatus').textContent = "UserName or Password not found";
+                document.getElementById('loginStatus').style.display = "block";
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>

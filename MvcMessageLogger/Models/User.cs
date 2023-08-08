@@ -67,5 +67,21 @@
             
             return coffeeCount.ToString();
         }
+
+
+        public bool LogInUser(string userName, string password)
+        {
+            if(this.Username == userName)
+            {
+                if(this.Password == password)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return false;
+        }
     }
 }

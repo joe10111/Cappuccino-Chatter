@@ -7,7 +7,7 @@
     @foreach (var message in Model)
     {
         <ul>
-            <li><p>Message Content: @message.Content, Time: @message.CreatedAt.ToString() </p></li>
+            <li><p>[@message.CreatedAt.ToShortTimeString()] : @message.Content </p></li>
         </ul>
     }
 }
