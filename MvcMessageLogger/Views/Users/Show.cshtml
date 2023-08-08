@@ -1,0 +1,30 @@
+﻿@model MvcMessageLogger.Models.User
+
+<h1>User Details</h1>
+
+<p>Username: @Model.Username</p>
+
+<p>Name: @Model.Name</p>
+
+    @if (Model.Messages != null && Model.Messages.Any())
+    {
+        <ul>
+            @foreach (var message in Model.Messages)
+            {
+                <li><p>@Model.Username : @message.Content</p></li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No Messages in DB</p>
+    }
+
+
+<form method="post" action="/users/@Model.Id">
+    <label for="Content">Add Message</label>
+        <textarea id="Content" name="Content" maxlength="255"></textarea>
+    <button type="submit">Add Message</button>
+</form>
+
+<a href="../Users"><button>Back</button></a>
