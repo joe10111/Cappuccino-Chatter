@@ -78,5 +78,64 @@ namespace MvcMessageLogger.FeatureTests
             Assert.Contains("Name: Joe", html);
         }
 
+        [Fact]
+        public async Task Test_UsersHaveLogInButton()
+        {
+            var context = GetDbContext();
+            context.Users.Add(new User { Username = "JimComedy123", Name = "Jim" });
+            context.SaveChanges();
+
+            var client = _factory.CreateClient();
+            var response = await client.GetAsync("/users");
+            var html = await response.Content.ReadAsStringAsync();
+
+            Assert.Contains("UserName: JimComedy123", html);
+            Assert.Contains("Log-In", html);
+        }
+
+        [Fact]
+        public async Task Test_UsersCanSeeAllMessages()
+        {
+            var context = GetDbContext();
+            var Jim = new User { Username = "JimComedy123", Name = "Jim" };
+            Jim.Messages.Add(new Message { Content = "Hello world!", CreatedAt = DateTime.UtcNow});
+            Jim.Messages.Add(new Message { Content = "Hello world two!", CreatedAt = DateTime.UtcNow });
+            context.Users.Add(Jim);
+            context.SaveChanges();
+
+            var client = _factory.CreateClient();
+            var response = await client.GetAsync($"/users/{Jim.Id}");
+            var html = await response.Content.ReadAsStringAsync();
+
+            Assert.Contains("Hello world!", html);
+            Assert.Contains("Hello world two!", html);
+        }
+
+        [Fact]
+        public async Task Test_AUserCanAddAMessage_InShowPage()
+        {
+            // Context is only needed if you want to assert against the database
+            var context = GetDbContext();
+
+            // Arrange
+            var client = _factory.CreateClient();
+            var Jim = new User { Username = "JimComedy123", Name = "Jim" };
+            context.Users.Add(Jim);
+            context.SaveChanges();
+
+            var formData = new Dictionary<string, string>
+            {
+                { "Content", "Hello world!" },
+            };
+
+            // Act
+            var response = await client.PostAsync($"/Users/{Jim.Id}", new FormUrlEncodedContent(formData));
+            var html = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            Assert.Contains("Hello world!", html);
+        }
     }
 }
