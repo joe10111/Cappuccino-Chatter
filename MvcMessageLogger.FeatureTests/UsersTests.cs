@@ -129,7 +129,7 @@ namespace MvcMessageLogger.FeatureTests
             };
 
             // Act
-            var response = await client.PostAsync($"/Users/{Jim.Id}", new FormUrlEncodedContent(formData));
+            var response = await client.PostAsync($"/Users/{Jim.Id}/messages", new FormUrlEncodedContent(formData));
             var html = await response.Content.ReadAsStringAsync();
 
             // Assert
@@ -208,10 +208,69 @@ namespace MvcMessageLogger.FeatureTests
             var response = await client.GetAsync($"/Users/stats");
             var html = await response.Content.ReadAsStringAsync();
 
+            TimeSpan hourAsTimeSpan = TimeSpan.FromHours(time.Hour);
+
+            string formattedStringHour = hourAsTimeSpan.ToString("hh':'mm");
+
             // Might have to chnage hard coded value later if I run test again and it changes time since I am 
             // calling DateTime.UtcNow;
-            Assert.Equal("17:00", Jim.HourWithMostMessages(Jim));
-            Assert.Equal("17:00", Joe.HourWithMostMessages(Joe));
+            Assert.Equal(formattedStringHour, Jim.HourWithMostMessages(Jim));
+            Assert.Equal(formattedStringHour, Joe.HourWithMostMessages(Joe));
+        }
+
+        [Fact]
+        public async Task Test_Delete_RemovesUserFromAllUsers()
+        {
+            // Arrange
+            var context = GetDbContext();
+            var client = _factory.CreateClient();
+            var time = DateTime.UtcNow;
+
+            var Jim = new User { Username = "JimComedy123", Name = "Jim" };
+            Jim.Messages.Add(new Message { Content = "coffee", CreatedAt = time });
+            context.Users.Add(Jim);
+            context.SaveChanges();
+
+            // Act
+            var response = await client.PostAsync($"/users/delete/{Jim.Id}", null);
+            var html = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.DoesNotContain("JimComedy123", html);
+        }
+
+        [Fact]
+        public async Task Update_SavesChangesToUser()
+        {
+            // Arrange
+            var context = GetDbContext();
+            var client = _factory.CreateClient();
+
+            var Jim = new User { Username = "JimComedy123", Name = "Jim" };
+            context.Users.Add(Jim);
+            context.SaveChanges();
+
+            var formData = new Dictionary<string, string>
+            {
+                { "Username", "Jim321" },
+                { "Name", "Jimmy" },
+                { "Password", "Password123" },
+                { "CoffeeOfChoice", "VLatte" }
+            };
+
+            // Act
+            var response = await client.PostAsync(
+                $"/users/{Jim.Id}",
+                new FormUrlEncodedContent(formData)
+            );
+            var html = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains("Jimmy", html);
+            Assert.Contains("Jim321", html);
+            Assert.DoesNotContain("Comedy", html);
         }
     }
 }
