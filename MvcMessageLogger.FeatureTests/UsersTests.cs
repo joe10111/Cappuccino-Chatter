@@ -209,7 +209,7 @@ namespace MvcMessageLogger.FeatureTests
             var html = await response.Content.ReadAsStringAsync();
 
             // Might have to chnage hard coded value later if I run test again and it changes time since I am 
-            // calling 
+            // calling DateTime.UtcNow;
             Assert.Equal("17:00", Jim.HourWithMostMessages(Jim));
             Assert.Equal("17:00", Joe.HourWithMostMessages(Joe));
         }

@@ -56,5 +56,33 @@ namespace MvcMessageLogger.Controllers
 
             return View(userWithMessages);
         }
+
+        // GET: Users/LogIn
+        [HttpGet("users/login")]
+        public IActionResult LogIn()
+        {
+            return View();
+        }
+
+        [HttpPost("users/login")]
+        public IActionResult LogIn(User userToLogin)
+        {
+            // Fetch the user with the given username from the database
+            var user = _context.Users.FirstOrDefault(u => u.Username == userToLogin.Username);
+
+            // If the user exists and the password is correct
+            if (user != null && VerifyPassword(user.Password, userToLogin.Password))
+            {
+                return Json(new { success = true, redirectUrl = Url.Action("Show", "Users", new { Id = user.Id }) });
+            }
+
+            // If login fails, send a JSON response.
+            return Json(new { success = false, message = "LogIn Failed" });
+        }
+
+        private bool VerifyPassword(string storedPassword, string providedPassword)
+        {
+            return storedPassword == providedPassword;
+        }
     }
 }
