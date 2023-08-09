@@ -16,3 +16,36 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.btn-primary {
+    background-color: #BEE7B8;
+    border-color: #BEE7B8;
+}
+
+.navbar.bg-white {
+    background-color: #BEE7B8 !important; 
+}
+
+/* For the homepage */
+body.homepage {
+    background-color: #6F4E37; /* homepage background color */
+}
+
+/* For other pages */
+body.otherpage {
+    background-color: #E5E0D5; /* background color for other pages */
+}
+
+/* "Cappuccino" h1 */
+.display-1 {
+    color: #BEE7B8; /* Your desired color for "Cappuccino" */
+}
+
+/* "Chatter" h2 */
+.display-2 {
+    color: #AEBD93; /* Your desired color for "Chatter" */
+}
+
+.footer {
+    background-color: #BEE7B8;
+}
