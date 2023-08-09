@@ -19,9 +19,13 @@
     {
         <p>No Messages in DB</p>
     }
+<a href="/Users/@Model.Id/edit"> Edit User </a>
 
+<form action="/users/delete/@Model.Id" method="post">
+    <button type="submit">Delete User</button>
+</form>
 
-<form method="post" action="/users/@Model.Id">
+<form method="post" action="/users/@Model.Id/messages">
     <label for="Content">Add Message</label>
         <textarea id="Content" name="Content" maxlength="255"></textarea>
     <button type="submit">Add Message</button>

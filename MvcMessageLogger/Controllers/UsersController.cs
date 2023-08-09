@@ -48,6 +48,26 @@ namespace MvcMessageLogger.Controllers
             return RedirectToAction("Index", new { id = newUserId });
         }
 
+        // GET: /Users/:id/edit
+        [Route("/users/{id:int}/edit")]
+        public IActionResult Edit(int id)
+        {
+            var user = _context.Users.Find(id);
+
+            return View(user);
+        }
+
+        // PUT: /Users/:id
+        [HttpPost]
+        [Route("/users/{id:int}")]
+        public IActionResult Update(User users)
+        {
+            _context.Users.Update(users);
+            _context.SaveChanges();
+
+            return RedirectToAction("show", new { id = users.Id });
+        }
+
         [HttpGet]
         [Route("users/stats")]
         public IActionResult Stats(int Id)
@@ -59,8 +79,10 @@ namespace MvcMessageLogger.Controllers
 
         // GET: Users/LogIn
         [HttpGet("users/login")]
-        public IActionResult LogIn()
+        public IActionResult LogIn(string username)
         {
+            ViewBag.Username = username;
+
             return View();
         }
 
@@ -83,6 +105,22 @@ namespace MvcMessageLogger.Controllers
         private bool VerifyPassword(string storedPassword, string providedPassword)
         {
             return storedPassword == providedPassword;
+        }
+
+        // DELETE: /Users/Delete/:id
+        [HttpPost]
+        [Route("Users/delete/{id:int}")]
+        public IActionResult Delete(int id)
+        {
+            var user = _context.Users.Include(u => u.Messages).FirstOrDefault(u => u.Id == id);
+
+            // Remove all messages associated with the user
+            _context.Messages.RemoveRange(user.Messages);
+
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }
