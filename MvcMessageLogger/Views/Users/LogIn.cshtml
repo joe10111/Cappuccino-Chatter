@@ -20,26 +20,41 @@
 </form>
 
 <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+     // Fetching the `loginForm` and `loginStatus` elements from the DOM
+    const loginForm = document.getElementById('loginForm');
+    const loginStatus = document.getElementById('loginStatus');
 
-        let formData = new FormData(this);
+     // Adding an event listener to the `loginForm` for the `submit` button, if clicked this script will run
+    loginForm.addEventListener('submit', async (eventObject) => {
+        eventObject.preventDefault();
 
-        fetch('/users/login', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
+         // Making an asynchronous POST request to the '/users/login' endpoint.
+        try {
+            const response = await fetch('/users/login', {
+                method: 'POST',
+                body: new FormData(loginForm)
+            });
+
+             // Parsing the JSON response from DB
+            const data = await response.json();
+
+             // If the data success property is true meaning the user inputed the correct username and password
             if (data.success) {
+                 // Rederecting to the user show page if successful
                 window.location.href = data.redirectUrl;
             } else {
-                document.getElementById('loginStatus').textContent = "UserName or Password not found";
-                document.getElementById('loginStatus').style.display = "block";
+                 // The string I set in textContent is what will be displayed when made visible
+                loginStatus.textContent = "UserName or Password not found";
+
+                 // By setting `loginStatus` to `block`,I can make the loginStatus 
+                 // element visible and it will take up the full width of its container
+                loginStatus.style.display = "block";
             }
-        })
-        .catch(error => {
+          // If something goes wrong, catch it and then log it into the void
+          // I don't know much about error handling and how that would even work with
+          // javascript inside of a .Net MVC app figuring out the above out was hard enough to be honest
+        } catch (error) {
             console.error('Error:', error);
-        });
+        }
     });
 </script>
