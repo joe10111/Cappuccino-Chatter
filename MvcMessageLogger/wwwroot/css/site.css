@@ -17,13 +17,22 @@ body {
   margin-bottom: 60px;
 }
 
+html, body {
+    height: 100%;
+}
+
 .btn-primary {
     background-color: #BEE7B8;
     border-color: #BEE7B8;
 }
 
+.btn-light {
+    background-color: #BEE7B8;
+    border-color: #BEE7B8;
+}
+
 .navbar.bg-white {
-    background-color: #BEE7B8 !important; 
+    background-color: #BEE7B8 !important;
 }
 
 /* For the homepage */
@@ -38,14 +47,33 @@ body.otherpage {
 
 /* "Cappuccino" h1 */
 .display-1 {
-    color: #BEE7B8; /* Your desired color for "Cappuccino" */
+    color: #BEE7B8; /*color for "Cappuccino" */
 }
 
 /* "Chatter" h2 */
 .display-2 {
-    color: #AEBD93; /* Your desired color for "Chatter" */
+    color: #AEBD93; /* color for "Chatter" */
 }
 
 .footer {
     background-color: #BEE7B8;
+}
+
+/* Custom styles */
+.custom-btn {
+    padding: 20px 40px; /* Increase padding for larger buttons */
+    font-size: 24px; /* Larger font size */
+}
+
+.custom-spacing {
+    margin-top: 200px; /* Custom top margin for more spacing */
+}
+
+.button-spacing {
+    margin-right: 100px; 
+}
+
+.scrollable-list {
+    max-height: 300px; 
+    overflow-y: auto; /* adds vertical scrollbar when necessary */
 }

@@ -6,9 +6,9 @@
 {
     @foreach (var user in Model)
     {
-        <ul>
+        <ul class="scrollable-list">
             <li><p>UserName: @user.Username, Name: @user.Name</p></li>
-            <a href="Users/LogIn?username=@user.Username"><button class="btn btn-secondary">Log-In</button></a>
+            <a href="Users/LogIn?username=@user.Username"><button class="btn btn-light">Log-In</button></a>
         </ul>
     }
 }
@@ -18,6 +18,6 @@ else
 }
 
 <a href="../"><button class="btn btn-secondary">Back</button></a>
-<a href="/users/stats"><button class="btn btn-primary">View All User Stats</button></a>
+<a href="/users/stats"><button class="btn btn-light">View All User Stats</button></a>
 
 

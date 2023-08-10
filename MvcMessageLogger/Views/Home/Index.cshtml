@@ -2,12 +2,21 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-1">Cappuccino</h1>
-    <h2 class="display-3"> - </h2>
-    <h2 class="display-2"> Chatter </h2>
+<div class="container h-100">
+    <!-- Make container full height -->
+    <div class="row h-100 justify-content-center align-items-center text-center">
+        <!-- Center content both vertically and horizontally -->
+        <div class="col">
+            <h1 class="display-1">Cappuccino</h1>
+            <h2 class="display-3"> - </h2>
+            <h2 class="display-2"> Chatter </h2>
+        </div>
+    </div>
 </div>
 
-<div class="text-bottom"> 
-   
+<!-- Buttons container with custom styles -->
+<div class="container text-center custom-spacing">
+    <a href="users/new"><button class="btn btn-light btn-lg custom-btn button-spacing">Sign Up</button></a>
+    <a href="users/login"> <button class="btn btn-light btn-lg custom-btn">Log In</button></a>
 </div>
+
