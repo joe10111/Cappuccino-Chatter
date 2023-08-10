@@ -77,3 +77,7 @@ body.otherpage {
     max-height: 300px; 
     overflow-y: auto; /* adds vertical scrollbar when necessary */
 }
+
+.custom-spacing-for-button {
+    margin-top: 20px;
+}

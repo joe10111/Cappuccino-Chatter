@@ -10,8 +10,8 @@
     {
         if(user.Messages.Any() != false)
         {
-            <ul>
-                <li><p>UserName: @user.Username | Count of Messages: @user.Messages.Count() | Most Used Words: @user.MostUsedWord(user) | Hour with Most Messages: @user.HourWithMostMessages(user) | How many times "Coffee" is mentioned: @user.CountOfCoffeeInMessages(user) </p></li>
+            <ul class="scrollable-list list-group">
+                <li><p>UserName: <strong>@user.Username </strong>| Count of Messages:  <strong>@user.Messages.Count() </strong> | Most Used Words:  <strong>@user.MostUsedWord(user) </strong> | Hour with Most Messages: <strong> @user.HourWithMostMessages(user)  </strong> | How many times "Coffee" is mentioned:  <strong>@user.CountOfCoffeeInMessages(user)</strong> </p></li>
             </ul>
         }
         else
