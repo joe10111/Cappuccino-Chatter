@@ -6,7 +6,7 @@
 {
     @foreach (var message in Model)
     {
-        <ul>
+        <ul class="scrollable-list list-group">
             <li><p>[@message.CreatedAt.ToShortTimeString()] : @message.Content </p></li>
         </ul>
     }

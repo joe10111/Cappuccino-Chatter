@@ -6,9 +6,9 @@
 {
     @foreach (var user in Model)
     {
-        <ul>
+        <ul class="scrollable-list list-group">
             <li><p>UserName: @user.Username, Name: @user.Name</p></li>
-            <a href="Users/LogIn?username=@user.Username"><button class="btn btn-secondary">Log-In</button></a>
+            <a href="Users/LogIn?username=@user.Username"><button class="btn btn-light">Log-In</button></a>
         </ul>
     }
 }
@@ -17,7 +17,7 @@ else
     <p>No data available.</p>
 }
 
-<a href="../"><button class="btn btn-secondary">Back</button></a>
-<a href="/users/stats"><button class="btn btn-primary">View All User Stats</button></a>
+<a href="../"><button class="btn btn-secondary custom-spacing-for-button">Back</button></a>
+<a href="/users/stats"><button class="btn btn-light custom-spacing-for-button">View All User Stats</button></a>
 
 

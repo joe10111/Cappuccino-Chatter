@@ -1,34 +1,48 @@
 ﻿@model MvcMessageLogger.Models.User
 
-<h1>User Details</h1>
+<div class="container">
+    <h1>User Details</h1>
+   
+    <div class="row">
 
-<p>Username: @Model.Username</p>
+        <!-- User Details (Left) -->
+        <div class="col-md-4">
+            <p>Username: @Model.Username</p>
+            <p>Name: @Model.Name</p>
+            <a href="/Users/@Model.Id/edit" class="btn btn-light"> Edit User </a>
+            
+            <form action="/users/delete/@Model.Id" method="post">
+                <button type="submit" class="btn btn-light">Delete User</button>
+            </form>
+        </div>
 
-<p>Name: @Model.Name</p>
+        <!-- Add Message Form (Center) -->
+        <div class="col-md-4">
+            <form method="post" action="/users/@Model.Id/messages">
+                <textarea id="Content" name="Content" maxlength="255"></textarea>
+                <button type="submit" class="btn btn-light d-block mt-2">Add Message</button>
+            </form>
+        </div>
 
-    @if (Model.Messages != null && Model.Messages.Any())
-    {
-        <ul>
-            @foreach (var message in Model.Messages)
+        <!-- All Messages (Right) -->
+        <div class="col-md-4">
+            @if (Model.Messages != null && Model.Messages.Any())
             {
-                <li><p>@Model.Username : @message.Content</p></li>
+                <h2>All Messages</h2>
+                <ul class="scrollable-list list-group">
+                    @foreach (var message in Model.Messages)
+                    {
+                        <li><p>@Model.Username : @message.Content</p></li>
+                    }
+                </ul>
             }
-        </ul>
-    }
-    else
-    {
-        <p>No Messages in DB</p>
-    }
-<a href="/Users/@Model.Id/edit"> Edit User </a>
+            else
+            {
+                <p>No Messages in DB</p>
+            }
+        </div>
 
-<form action="/users/delete/@Model.Id" method="post">
-    <button type="submit">Delete User</button>
-</form>
+    </div> <!-- end of row -->
 
-<form method="post" action="/users/@Model.Id/messages">
-    <label for="Content">Add Message</label>
-        <textarea id="Content" name="Content" maxlength="255"></textarea>
-    <button type="submit">Add Message</button>
-</form>
-
-<a href="../Users"><button class="btn btn-secondary">Back</button></a>
+    <a href="../Users"><button class="btn btn-secondary">Back</button></a>
+</div> <!-- end of container -->
