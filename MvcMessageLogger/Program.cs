@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MvcMessageLogger.DataAccess;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,14 +12,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MvcMessageLoggerContext>(
     options =>
         options
-            .UseNpgsql(
-                builder.Configuration.GetConnectionString("MvcMessageLoggerDb")
-                    ?? throw new InvalidOperationException(
-                        "Connection string 'MvcMessageLoggerDb' not found."
-                    )
-            )
-            .UseSnakeCaseNamingConvention()
-);
+            .UseNpgsql(builder.Configuration["MESSAGELOGGER DBCONNECTIONSTRING"])
+            .UseSnakeCaseNamingConvention());
 
 var app = builder.Build();
 
