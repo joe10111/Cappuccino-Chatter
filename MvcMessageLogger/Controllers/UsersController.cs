@@ -2,6 +2,8 @@
 using MvcMessageLogger.Models;
 using MvcMessageLogger.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace MvcMessageLogger.Controllers
 {
@@ -38,8 +40,22 @@ namespace MvcMessageLogger.Controllers
 
         // POST: /users
         [HttpPost]
+        [Route("Users/")]
         public IActionResult Index(User user)
         {
+            HashAlgorithm sha256 = SHA256.Create();
+
+             // Convert password to byte array
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(user.Password);
+
+             // Compute the SHA-256 hash
+            byte[] hashedPasswordBytes = sha256.ComputeHash(passwordBytes);
+
+             // Convert hash byte array to Base64 string
+            string hashedPasswordBase64 = Convert.ToBase64String(hashedPasswordBytes);
+
+            user.Password = hashedPasswordBase64;
+
             _context.Users.Add(user);
             _context.SaveChanges();
 
@@ -72,6 +88,7 @@ namespace MvcMessageLogger.Controllers
         [Route("users/stats")]
         public IActionResult Stats(int Id)
         {
+
             var userWithMessages = _context.Users.Include(user => user.Messages);
 
             return View(userWithMessages);
@@ -104,7 +121,18 @@ namespace MvcMessageLogger.Controllers
 
         private bool VerifyPassword(string storedPassword, string providedPassword)
         {
-            return storedPassword == providedPassword;
+            HashAlgorithm sha256 = SHA256.Create();
+
+            // Convert password to byte array
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(providedPassword);
+
+            // Compute the SHA-256 hash
+            byte[] hashedPasswordBytes = sha256.ComputeHash(passwordBytes);
+
+            // Convert hash byte array to Base64 string
+            string hashedPasswordBase64 = Convert.ToBase64String(hashedPasswordBytes);
+
+            return storedPassword == hashedPasswordBase64;
         }
 
         // DELETE: /Users/Delete/:id
