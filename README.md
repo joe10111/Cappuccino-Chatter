@@ -29,7 +29,7 @@ Cappuccino - Chatter is a social media messaging app developed using .NET C# MVC
 ![WireFrames](https://lh4.googleusercontent.com/qEfs5KScRKFp6HPO0rZh5nPrzQ5WlPMOufuI1V6tG0ONNV8n-2fxze6xw5v5V4hkz4O-5EPWyNpMAR9Caq6MYvEk0fqwdo9JqNwcRZ8vZ-0ebX0bW3vJuW1TxQ93GR5NSYY0XdpE26ZQWDCKFjJ6FwTSQw=s2048)
 
 ### Final Home and Message Page
-![FinalHome](https://lh4.googleusercontent.com/6iQ6T-O1tIgDpw_5czh9Bu4fQrQ02UURmtp_LHh2MRbfvC9C54ZdjVBJpiPPRxRb6EGw2dyffIfKTFibQAaqIDRTrqTgS0ydC7zU4nC51ILdb4l0MpXgrcd-9VKTWKZbVfY1mdDtupuA5ByP_la5EAgAJg=s2048)
+[![](https://cdn.loom.com/sessions/thumbnails/1efcbd6abf694bf5bfef012e9f5ccbba-with-play.gif)](https://www.loom.com/share/1efcbd6abf694bf5bfef012e9f5ccbba)
 
 ![FinalMessage](https://lh6.googleusercontent.com/-RMGba2Bh-odkZ5eL0vfEIOvkbaSwwFmlp5ltdcKQSSjG3Yh8EYUr3cVq9gKoq22Zx6NjKKIBrwkNOvXg-q4p4-SECy1Bi7M76JX5NrxKYDRPLjbx8jFKb5f2PTCX87ICEEmhBXpI7165JSXuOdyb6JS6A=s2048)
 
