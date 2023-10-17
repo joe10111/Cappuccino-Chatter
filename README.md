@@ -9,7 +9,7 @@ Cappuccino - Chatter is a social media messaging app developed using .NET C# MVC
 - [Usage](#usage)
 - [Screenshots](#screenshots)
 - [Installation](#installation)
-- [Technologies Used](#technologies used )
+- [Technologies Used](#technologies)
 - [License](#license)
 
 ## Features
