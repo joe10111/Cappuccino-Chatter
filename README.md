@@ -6,9 +6,9 @@ Cappuccino - Chatter is a social media messaging app developed using .NET C# MVC
 - [Joe Centeno](https://www.github.com/joe10111)
 ## Table of Contents
 - [Features](#features)
+- [Usage](#usage)
 - [Screenshots](#screenshots)
 - [Installation](#installation)
-- [Usage](#usage)
 - [Technologies Used](#technologies used )
 - [License](#license)
 
@@ -17,6 +17,12 @@ Cappuccino - Chatter is a social media messaging app developed using .NET C# MVC
 - **Coffee Enthusiast Community**: Connect with fellow coffee lovers and discuss various coffee-related topics.
 - **Messaging**: Send and receive messages within the platform.
 - **Profile Management**: Customize your profile, including profile picture and bio.
+
+## Usage 
+1. Sign up for an account or log in if you already have one. 
+2. Explore the coffee enthusiast community and engage in discussions. 
+3. Send and receive messages with other users. 
+4. Customize your profile to showcase your coffee passion with your favorite coffee.
 
 ## Screenshots
 ### Wire Frames
@@ -44,12 +50,6 @@ git clone https://github.com/joe10111/Cappuccino-Chatter.git
 5. Build and run the project.
 6. Visit http://localhost:PORT_NUMBER in your web browser to access the application.
 ```
-
-## Usage 
-1. Sign up for an account or log in if you already have one. 
-2. Explore the coffee enthusiast community and engage in discussions. 
-3. Send and receive messages with other users. 
-4. Customize your profile to showcase your coffee passion with your favorite coffee.
 
 ## Technologies
 - .NET C# MVC - Entity Framework Core
